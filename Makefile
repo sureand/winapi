@@ -16,6 +16,7 @@ DLL_TARGET = winapi.dll
 
 # Source directory
 SRCDIR = src
+DEST_DIR = example
 
 # Source files
 SRCS = $(wildcard $(SRCDIR)/*.c)
@@ -33,6 +34,11 @@ $(SRCDIR)/%.o: $(SRCDIR)/%.c
 # Clean target
 clean:
 	if exist $(DLL_TARGET) del $(DLL_TARGET)
+	if exist $(DEST_DIR) del $(DEST_DIR)\*.dll
+
+install: $(DLL_TARGET)
+	if not exist $(DEST_DIR) mkdir $(DEST_DIR)
+	copy $(DLL_TARGET) $(DEST_DIR)\
 
 # Phony targets to avoid conflicts with files named 'all' or 'clean'
 .PHONY: all clean
